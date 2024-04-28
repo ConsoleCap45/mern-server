@@ -6,6 +6,7 @@ const port = process.env.PORT || 5000;
 // middlewear 
 app.use(cors(
     {
+        origin: ["https://mern-server-bay.vercel.app/"],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         credentials: true
     }
