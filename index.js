@@ -6,7 +6,6 @@ const port = process.env.PORT || 5000;
 // middlewear 
 app.use(cors(
     {
-        origin: ["https://deploy-mern-1whq.vercel.app"],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         credentials: true
     }
@@ -40,7 +39,7 @@ async function run() {
 
 
         // insert a book to db: Post Method
-        app.post("/api/upload-book", async (req, res) => {
+        app.post("/upload-book", async (req, res) => {
             const data = req.body;
             // console.log(data);
             const result = await bookCollections.insertOne(data);
@@ -55,7 +54,7 @@ async function run() {
         // })
 
         // get all books & find by a category from db
-        app.get("/api/all-books", async (req, res) => {
+        app.get("/all-books", async (req, res) => {
             let query = {};
             if (req.query?.category) {
                 query = { category: req.query.category }
@@ -65,7 +64,7 @@ async function run() {
         })
 
         // update a books method
-        app.patch("/api/book/:id", async (req, res) => {
+        app.patch("/book/:id", async (req, res) => {
             const id = req.params.id;
             // console.log(id);
             const updateBookData = req.body;
@@ -84,7 +83,7 @@ async function run() {
 
 
         // delete a item from db
-        app.delete("/api/book/:id", async (req, res) => {
+        app.delete("/book/:id", async (req, res) => {
             const id = req.params.id;
             const filter = { _id: new ObjectId(id) };
             const result = await bookCollections.deleteOne(filter);
@@ -93,7 +92,7 @@ async function run() {
 
 
         // get a single book data
-        app.get("/api/book/:id", async (req, res) => {
+        app.get("/book/:id", async (req, res) => {
             const id = req.params.id;
             const filter = { _id: new ObjectId(id) };
             const result = await bookCollections.findOne(filter);
